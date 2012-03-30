@@ -2,7 +2,7 @@
 {% block content %}
 	<div data-role="page">
 		<div data-role="header" class="header">
-            <a href="{{ url_for('home_list', city=city.label) }}" data-transition="flip">返回</a>
+            <a href="javascript:history.go(-1);" data-transition="flip">返回</a>
             <a id="init-url" href="{{ data_url }}" style="display:none" ></a>
             <h1>{{ cate and cate.name }}</h1>
 		</div>
