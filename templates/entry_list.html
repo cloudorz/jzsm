@@ -3,7 +3,7 @@
 	<div data-role="page">
 		<div data-role="header" class="header">
             <a href="{{ url_for('home_list', city=city.label) }}" data-transition="flip">返回</a>
-            <h1>{{ cate.name }}</h1>
+            <h1>{{ cate and cate.name }}</h1>
 		</div>
 		<div data-role="content">	
 			<ul data-role="listview" class="basic">
