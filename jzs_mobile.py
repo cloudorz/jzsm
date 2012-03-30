@@ -139,12 +139,11 @@ def search(city):
             abort(400)
 
 
-@app.route('/city/<cur_city>')
+@app.route('/city/')
 def change_city(cur_city):
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
     return render_template('city.html',
-            cities=order_cities,
-            cur_city=CITIES[cur_city])
+            cities=order_cities)
 
 
 @app.route('/entry/<eid>/detail')
@@ -152,7 +151,8 @@ def detail(eid):
     entry = db.Entry.find_one({'_id': eid})
     if not entry: abort(404)
 
-    return render_template('detail.html', entry=entry)
+    return render_template('detail.html',
+            e=entry)
 
 
 if __name__ == "__main__":
