@@ -27,7 +27,16 @@ def server_error(error):
 @app.route('/')
 @app.route('/<city>')
 def home_list(city=None):
-    return render_template('home_list', city=city)
+    return render_template('home_list.html',
+            city=city)
+
+
+@app.route('/entry/<city>/<cate>')
+@app.route('/entry/<city>/<q>')
+def entry_list(city, cate=None, q=None):
+    return render_template('entry_list.html',
+            city=city,
+            q=q)
 
 
 @app.route('/<city>/s/')
