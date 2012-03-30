@@ -156,8 +156,18 @@ def search(city):
 
 @app.route('/city/')
 def change_city():
+    ip = request.headers['X-Real-IP']
+    city = 'hangzhou'
+    if ip:
+        record = gic.record_by_addr(ip)
+        if record:
+            city_ = record.get('city', None)
+            if city_ and city_ in CITIES:
+                city = city_.lower()
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
+
     return render_template('city.html',
+            cur_city=CITIES[city],
             cities=order_cities,
             )
 
