@@ -1,0 +1,195 @@
+.hr{background-color:#dfd8d4; width:100%;height:1px;border-bottom:1px solid white;}
+body{background-color:#f8f6f4; }
+.header h1{text-shadow: 0 -1px 0px rgba(0, 0, 0, .1); color:white;}
+table{text-align:left;}
+table th{min-width:80px;}
+a{text-decoration:none;}
+h2{font-size:1em; color:#666;}
+.header{
+	background-color: #f5a000;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f8b300), to(#f5a000));
+	background-image: -webkit-linear-gradient(top, #f8b300, #f5a000);
+	background-image: -moz-linear-gradient(top, #f8b300, #f5a000);
+	background-image: -ms-linear-gradient(top, #f8b300, #f5a000);
+	background-image: -o-linear-gradient(top, #f8b300, #f5a000);
+	background-image: linear-gradient(top, #f8b300, #f5a000);
+	border-bottom:1px solid #e47d02;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+.header a{
+	padding:0 0.2em;
+	-moz-border-radius: 0.4em;
+	-webkit-border-radius: 0.4em;
+	border-radius: 0.4em;
+	background-color:#f8b500;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f9bb00), to(#f7ab00));
+	background-image: -webkit-linear-gradient(top, #f9bb00, #f7ab00);
+	background-image: -moz-linear-gradient(top, #f9bb00, #f7ab00);
+	background-image: -ms-linear-gradient(top, #f9bb00, #f7ab00);
+	background-image: -o-linear-gradient(top, #f9bb00, #f7ab00);
+	background-image: linear-gradient(top, #f9bb00, #f7ab00);
+	border:1px solid #dc7800;
+	box-shadow: 0 1px 0px #fbd300 inset;
+	color:white; 
+	text-shadow: 0 -1px 0px rgba(0, 0, 0, .1);
+}
+.header a:active{
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f7ab00), to(#f9bb00));
+	background-image: -webkit-linear-gradient(top, #f7ab00, #f9bb00);
+	background-image: -moz-linear-gradient(top, #f7ab00, #f9bb00);
+	background-image: -ms-linear-gradient(top, #f7ab00, #f9bb00);
+	background-image: -o-linear-gradient(top, #f7ab00, #f9bb00);
+	background-image: linear-gradient(top, #f7ab00, #f9bb00);
+}
+.header h1 span{
+	font-size:12px;
+	font-weight:normal;
+	margin-left:5px;
+}
+
+ul li{
+	border-top:1px solid #dad6d4;
+}
+ul li p{color:#999;}
+ul li:first-child{border-top:none;}
+ul li a{font-size:14px; color:#444; font-weight:bold;}
+ul li a:active{background-color:#e9e5e2; box-shadow:0 1px 2px rgba(0, 0, 0, .2) inset;}
+ul.inset{
+	border:1px solid #dad6d4;
+	border-radius:0.6em;
+	background-color: white;
+	text-align:center;
+}
+ul.inset li a{text-align:center;}
+ul.inset li a:active{background-color:#f8f8f8;}
+ul.basic li:last-child{border-bottom:1px solid #dad6d4 !important;}
+
+
+span.r{
+	display:block;
+	width:11px;
+	height:16px;
+	position: absolute;
+	top:50%;
+	margin-top:-8px;
+	right:10px;
+	background:url('img/right.png') no-repeat;
+	background-position:0px 0px;
+}
+
+.service ul li a{
+	padding:1.2em 15px 1.2em 40px !important;
+}
+.service ul li i{
+	display: block;
+	width:18px;
+	height:18px;
+	position: absolute;
+	top:50%;
+	margin-top:-9px;
+	left:10px;
+	background:url('img/service.png') no-repeat;
+}
+.service ul li i.fix{background-position:-18px 0;}
+.service ul li i.fan{background-position:-36px 0;}
+.service ul li i.pipe{background-position:-54px 0;}
+.service ul li i.unlock{background-position:-72px 0;}
+.service ul li i.baby{background-position:-90px 0;}
+.service ul li i.clean{background-position:-108px 0;}
+.service ul li i.pc{background-position:-126px 0;}
+
+.info table th{
+	font-size:14px;
+	font-weight:bold;
+	color:#f18d00;
+}
+.info table td{
+	font-size:14px;
+	color:#444;
+	line-height:1.3em;
+	padding:0.6em 0;
+}
+.info table{margin-bottom:0.5em;}
+.decrip p{
+	font-size:14px;
+	line-height:1.3em;
+	color:#888;
+}
+
+#contact{
+	width:100%;
+	background-color:white;
+	position:fixed;
+	left:0;
+	bottom:0;
+	border-top:1px solid #dfd8d4;
+	padding-left:15px;
+}
+#contact .wrapper{
+	position: relative;
+}
+#contact .telmail{
+	position: absolute;
+	top:50%;
+	margin-top:-15px;
+	right:15px;
+	overflow: hidden;
+}
+
+#contact a {
+	display:block;
+	margin-right:8px;
+	position: relative;
+	float:left;
+	top:50%;
+	padding:0.5em 1em 0.5em 2.2em;
+	color:#333;
+	text-shadow:0px 1px 0px #ffffff;
+	font-size:14px;
+	font-weight:bold;
+	border:1px solid #dfd8d4;
+	border-radius:0.4em;
+	background-color:#f8b500;
+	box-shadow: 0 1px 0px white inset;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f5f3f1));
+	background-image: -webkit-linear-gradient(top, #ffffff, #f5f3f1);
+	background-image: -moz-linear-gradient(top, #ffffff, #f5f3f1);
+	background-image: -ms-linear-gradient(top, #ffffff, #f5f3f1);
+	background-image: -o-linear-gradient(top, #ffffff, #f5f3f1);
+	background-image: linear-gradient(top, #ffffff, #f5f3f1);
+}
+#contact a:active{
+	background-color:#f8b500;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#e9e5e2), to(#f7f5f3));
+	background-image: -webkit-linear-gradient(top, #e9e5e2, #f7f5f3);
+	background-image: -moz-linear-gradient(top, #e9e5e2, #f7f5f3);
+	background-image: -ms-linear-gradient(top, #e9e5e2, #f7f5f3);
+	background-image: -o-linear-gradient(top, #e9e5e2, #f7f5f3);
+	background-image: linear-gradient(top, #e9e5e2, #f7f5f3);
+}
+#contact a i{
+	display:block;
+	width:13px;
+	height:12px;
+	position:absolute;
+	top:50%;
+	left:10px;
+	margin-top:-6px;
+}
+#contact a i.mail{
+	background:url('img/mail.png');
+}
+#contact a i.tel{
+	background:url('img/call.png');
+}
+#contact h4{padding-left:20px;}
+#contact span.contactor{
+	display: block;
+	position: absolute;
+	top:50%;
+	margin-top:-8px;
+	left:0px;
+	width:15px;
+	height:16px;
+	background:url('img/contact.png') no-repeat;
+}

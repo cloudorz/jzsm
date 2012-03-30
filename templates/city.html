@@ -1,0 +1,31 @@
+{% extends "layout_m.html" %}
+{% block content %}
+	<div data-role="page">
+		<div data-role="header" class="header">
+			<a href="index.html"  data-transition="flip">返回</a>
+			<h1>杭州</h1>
+		</div>
+		<div data-role="content" >	
+			<h2>定位城市</h2>
+			<ul data-role="listview" data-inset="true" class="inset">
+				<li data-corners="true">
+					<a href="/list.html">
+						杭州
+					</a>
+				</li>
+			</ul>
+			<h2>热门城市</h2>
+			<ul data-role="listview" data-inset="true" class="inset">
+				<li>
+					<a href="/list.html">
+						上海
+					</a>
+				</li>
+				<li><a href="list.html">南京</a></li>
+				<li><a href="list.html">广州</a></li>
+				<li><a href="list.html">北京</a></li>
+				<li><a href="list.html">深圳</a></li>
+			</ul>	
+		</div><!-- /content --><!-- /header -->
+	</div>
+{% endblock %}
