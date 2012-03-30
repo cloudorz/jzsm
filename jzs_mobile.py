@@ -1,5 +1,7 @@
 # coding: utf-8
 
+import pygeoip
+
 from pymongo import Connection
 from gevent.wsgi import WSGIServer
 from flask import Flask, redirect, url_for, render_template, jsonify, \
@@ -14,6 +16,8 @@ app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 
 # consists
+gic = pygeoip.GeoIP('/data/backup/GeoLiteCity.dat', pygeoip.MEMORY_CACHE)
+
 CITIES = {
         'hangzhou': {'no': 1, 'label': 'hangzhou', 'name': u'杭州'},
         'shanghai': {'no': 2, 'label': 'shanghai', 'name': u'上海'},
@@ -46,8 +50,19 @@ def server_error(error):
 # request handlers
 @app.route('/')
 @app.route('/<city>/')
-def home_list(city='hangzhou'):
+def home_list(city=None):
+    if not city:
+        ip = request.headers['X-Real-IP']
+        city = 'hangzhou'
+        if ip:
+            record = gic.record_by_addr(ip)
+            if record:
+                city_ = record.get('city', None)
+                if city_ and city_ in CITIES:
+                    city = city_.lower()
+
     order_cates = sorted(CATES.values(), lambda e1, e2: e1['no'] - e2['no'])
+
     return render_template('home_list.html',
             cates=order_cates,
             city=CITIES[city])
