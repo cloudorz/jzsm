@@ -136,7 +136,7 @@ def change_city(cur_city):
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
     return render_template('city.html',
             cities=order_cities,
-            cur_city=cur_city)
+            cur_city=CITIES[cur_city])
 
 
 @app.route('/entry/<eid>/detail')
