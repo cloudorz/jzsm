@@ -15,23 +15,23 @@ app.config.from_pyfile('config.cfg')
 
 # consists
 CITIES = {
-        'hangzhou': {'label': 'hangzhou', 'name': u'杭州'},
-        'shanghai': {'label': 'shanghai', 'name': u'上海'},
-        'nanjing': {'label': 'nanjing', 'name': u'南京'},
-        'beijing': {'label': 'beijing', 'name': u'北京'},
-        'shenzhen': {'label': 'shenzhen', 'name': u'深圳'},
-        'guangzhou': {'label': 'guangzhou', 'name': u'广州'},
+        'hangzhou': {'no': 1, 'label': 'hangzhou', 'name': u'杭州'},
+        'shanghai': {'no': 2, 'label': 'shanghai', 'name': u'上海'},
+        'nanjing': {'no': 3, 'label': 'nanjing', 'name': u'南京'},
+        'beijing': {'no': 4, 'label': 'beijing', 'name': u'北京'},
+        'shenzhen': {'no': 5, 'label': 'shenzhen', 'name': u'深圳'},
+        'guangzhou': {'no': 6, 'label': 'guangzhou', 'name': u'广州'},
         }
 
 CATES = {
-        'banjia': {'logo': 'move', 'label': 'banjia', 'name': u'搬家'},
-        'jiadianweixiu': {'logo': 'fix', 'label': 'jiadianweixiu', 'name': u'家电维修'},
-        'kongtiaoyiji': {'logo': 'fan', 'label': 'kongtiaoyiji', 'name': u'空调移机'},
-        'guandaoshutong': {'logo': 'pipe', 'label': 'guandaoshutong', 'name': u'管道疏通'},
-        'kaisuo': {'logo': 'unlock', 'label': 'kaisuo', 'name': u'开锁'},
-        'yuesao': {'logo': 'baby', 'label': 'yuesao', 'name': u'月嫂'},
-        'zhongdiangong': {'logo': 'clean', 'label': 'zhongdiangong', 'name': u'钟点工'},
-        'xiudiannao': {'logo': 'pc', 'label': 'xiudiannao', 'name': u'修电脑'},
+        'banjia': {'no': 1, 'logo': 'move', 'label': 'banjia', 'name': u'搬家'},
+        'jiadianweixiu': {'no': 2, 'logo': 'fix', 'label': 'jiadianweixiu', 'name': u'家电维修'},
+        'kongtiaoyiji': {'no': 3, 'logo': 'fan', 'label': 'kongtiaoyiji', 'name': u'空调移机'},
+        'guandaoshutong': {'no': 4, 'logo': 'pipe', 'label': 'guandaoshutong', 'name': u'管道疏通'},
+        'kaisuo': {'no': 5, 'logo': 'unlock', 'label': 'kaisuo', 'name': u'开锁'},
+        'yuesao': {'no': 6, 'logo': 'baby', 'label': 'yuesao', 'name': u'月嫂'},
+        'zhongdiangong': {'no': 7, 'logo': 'clean', 'label': 'zhongdiangong', 'name': u'钟点工'},
+        'xiudiannao': {'no': 8, 'logo': 'pc', 'label': 'xiudiannao', 'name': u'修电脑'},
         }
 
 @app.errorhandler(404)
@@ -45,10 +45,11 @@ def server_error(error):
 
 # request handlers
 @app.route('/')
-@app.route('/<city>')
+@app.route('/<city>/')
 def home_list(city='hangzhou'):
+    order_cates = sorted(CATES.values(), lambda e1, e2: e1['no'] - e2['no'])
     return render_template('home_list.html',
-            cates=CATES,
+            cates=order_cates,
             city=CITIES[city])
 
 
@@ -130,12 +131,15 @@ def search(city):
             abort(400)
 
 
-@app.route('/city/')
-def change_city(name=None):
-    return render_template('city.html')
+@app.route('/city/<cur_city>')
+def change_city(cur_city):
+    order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
+    return render_template('city.html',
+            cities=order_cities,
+            cur_city=cur_city)
 
 
-@app.route('/entry/<eid>')
+@app.route('/entry/<eid>/detail')
 def detail(eid):
     entry = db.Entry.find_one({'_id': eid})
     if not entry: abort(404)
