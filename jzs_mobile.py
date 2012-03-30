@@ -53,8 +53,8 @@ def home_list(city='hangzhou'):
             city=CITIES[city])
 
 
-@app.route('/entry/<city>/<cate>')
-@app.route('/entry/<city>/<q>')
+@app.route('/entry/<city>/<cate>/cate')
+@app.route('/entry/<city>/<q>/search')
 def entry_list(city, cate=None, q=None):
     return render_template('entry_list.html',
             city=CITIES[city],
