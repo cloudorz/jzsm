@@ -140,10 +140,11 @@ def search(city):
 
 
 @app.route('/city/')
-def change_city(cur_city):
+def change_city():
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
     return render_template('city.html',
-            cities=order_cities)
+            cities=order_cities,
+            )
 
 
 @app.route('/entry/<eid>/detail')
