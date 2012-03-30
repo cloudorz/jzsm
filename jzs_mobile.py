@@ -15,23 +15,23 @@ app.config.from_pyfile('config.cfg')
 
 # consists
 CITIES = {
-        'hangzhou': {'label': 'hangzhou', 'name': '杭州'},
-        'shanghai': {'label': 'shanghai', 'name': '上海'},
-        'nanjing': {'label': 'nanjing', 'name': '南京'},
-        'beijing': {'label': 'beijing', 'name': '北京'},
-        'shenzhen': {'label': 'shenzhen', 'name': '深圳'},
-        'guangzhou': {'label': 'guangzhou', 'name': '广州'},
+        'hangzhou': {'label': 'hangzhou', 'name': u'杭州'},
+        'shanghai': {'label': 'shanghai', 'name': u'上海'},
+        'nanjing': {'label': 'nanjing', 'name': u'南京'},
+        'beijing': {'label': 'beijing', 'name': u'北京'},
+        'shenzhen': {'label': 'shenzhen', 'name': u'深圳'},
+        'guangzhou': {'label': 'guangzhou', 'name': u'广州'},
         }
 
 CATES = {
-        'banjia': {'logo': 'move', 'label': 'banjia', 'name': '搬家'},
-        'jiadianweixiu': {'logo': 'fix', 'label': 'jiadianweixiu', 'name': '家电维修'},
-        'kongtiaoyiji': {'logo': 'fan', 'label': 'kongtiaoyiji', 'name': '空调移机'},
-        'guandaoshutong': {'logo': 'pipe', 'label': 'guandaoshutong', 'name': '管道疏通'},
-        'kaisuo': {'logo': 'unlock', 'label': 'kaisuo', 'name': '开锁'},
-        'yuesao': {'logo': 'baby', 'label': 'yuesao', 'name': '月嫂'},
-        'zhongdiangong': {'logo': 'clean', 'label': 'zhongdiangong', 'name': '钟点工'},
-        'xiudiannao': {'logo': 'pc', 'label': 'xiudiannao', 'name': '修电脑'},
+        'banjia': {'logo': 'move', 'label': 'banjia', 'name': u'搬家'},
+        'jiadianweixiu': {'logo': 'fix', 'label': 'jiadianweixiu', 'name': u'家电维修'},
+        'kongtiaoyiji': {'logo': 'fan', 'label': 'kongtiaoyiji', 'name': u'空调移机'},
+        'guandaoshutong': {'logo': 'pipe', 'label': 'guandaoshutong', 'name': u'管道疏通'},
+        'kaisuo': {'logo': 'unlock', 'label': 'kaisuo', 'name': u'开锁'},
+        'yuesao': {'logo': 'baby', 'label': 'yuesao', 'name': u'月嫂'},
+        'zhongdiangong': {'logo': 'clean', 'label': 'zhongdiangong', 'name': u'钟点工'},
+        'xiudiannao': {'logo': 'pc', 'label': 'xiudiannao', 'name': u'修电脑'},
         }
 
 @app.errorhandler(404)
