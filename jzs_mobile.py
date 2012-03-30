@@ -13,6 +13,26 @@ db = Connection('localhost', 27017).jzsou
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 
+# consists
+CITIES = {
+        'hangzhou': {'label': 'hangzhou', 'name': '杭州'},
+        'shanghai': {'label': 'shanghai', 'name': '上海'},
+        'nanjing': {'label': 'nanjing', 'name': '南京'},
+        'beijing': {'label': 'beijing', 'name': '北京'},
+        'shenzhen': {'label': 'shenzhen', 'name': '深圳'},
+        'guangzhou': {'label': 'guangzhou', 'name': '广州'},
+        }
+
+CATES = {
+        'banjia': {'logo': 'move', 'label': 'banjia', 'name': '搬家'},
+        'jiadianweixiu': {'logo': 'fix', 'label': 'jiadianweixiu', 'name': '家电维修'},
+        'kongtiaoyiji': {'logo': 'fan', 'label': 'kongtiaoyiji', 'name': '空调移机'},
+        'guandaoshutong': {'logo': 'pipe', 'label': 'guandaoshutong', 'name': '管道疏通'},
+        'kaisuo': {'logo': 'unlock', 'label': 'kaisuo', 'name': '开锁'},
+        'yuesao': {'logo': 'baby', 'label': 'yuesao', 'name': '月嫂'},
+        'zhongdiangong': {'logo': 'clean', 'label': 'zhongdiangong', 'name': '钟点工'},
+        'xiudiannao': {'logo': 'pc', 'label': 'xiudiannao', 'name': '修电脑'},
+        }
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -26,16 +46,18 @@ def server_error(error):
 # request handlers
 @app.route('/')
 @app.route('/<city>')
-def home_list(city=None):
+def home_list(city='hangzhou'):
     return render_template('home_list.html',
-            city=city)
+            cates=CATES,
+            city=CITIES[city])
 
 
 @app.route('/entry/<city>/<cate>')
 @app.route('/entry/<city>/<q>')
 def entry_list(city, cate=None, q=None):
     return render_template('entry_list.html',
-            city=city,
+            city=CITIES[city],
+            cate=cate and CATES[cate],
             q=q)
 
 

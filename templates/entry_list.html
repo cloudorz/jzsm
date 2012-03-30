@@ -2,8 +2,8 @@
 {% block content %}
 	<div data-role="page">
 		<div data-role="header" class="header">
-			<a href="index.html" data-transition="flip">返回</a>
-			<h1>搬家</h1>
+            <a href="{{ url_for('home_list', city=city.label) }}" data-transition="flip">返回</a>
+            <h1>{{ cate.name }}</h1>
 		</div>
 		<div data-role="content">	
 			<ul data-role="listview" class="basic">
@@ -50,6 +50,6 @@
 					</a>
 				</li>
 			</ul>	
-		</div><!-- /content --><!-- /header -->
+		</div>
 	</div>
 {% endblock %}
