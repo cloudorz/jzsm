@@ -52,14 +52,7 @@ def server_error(error):
 @app.route('/<city>/')
 def home_list(city=None):
     if not city:
-        ip = request.headers['X-Real-IP']
-        city = 'hangzhou'
-        if ip:
-            record = gic.record_by_addr(ip)
-            if record:
-                city_ = record.get('city', None)
-                if city_ and city_ in CITIES:
-                    city = city_.lower()
+        city = get_city_by_ip()
 
     order_cates = sorted(CATES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
@@ -156,14 +149,7 @@ def search(city):
 
 @app.route('/city/')
 def change_city():
-    ip = request.headers['X-Real-IP']
-    city = 'hangzhou'
-    if ip:
-        record = gic.record_by_addr(ip)
-        if record:
-            city_ = record.get('city', None)
-            if city_ and city_ in CITIES:
-                city = city_.lower()
+    city = get_city_by_ip()
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('city.html',
@@ -180,6 +166,16 @@ def detail(eid):
     return render_template('detail.html',
             e=entry)
 
+def get_city_by_ip():
+    ip = request.headers['X-Real-IP']
+    city = 'hangzhou'
+    if ip:
+        record = gic.record_by_addr(ip)
+        if record:
+            city_ = record.get('city', None)
+            if city_ and city_ in CITIES:
+                city = city_.lower()
+    return city
 
 if __name__ == "__main__":
     http_server = WSGIServer(('127.0.0.1', 8300), app)
