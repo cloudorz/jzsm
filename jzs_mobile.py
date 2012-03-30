@@ -56,10 +56,18 @@ def home_list(city='hangzhou'):
 @app.route('/entry/<city>/<cate>/cate')
 @app.route('/entry/<city>/<q>/search')
 def entry_list(city, cate=None, q=None):
+
+    url = ''
+    if cate:
+        url = url_for('search', city=city, st=1, q='tag:%s' % cate)
+
+    if q:
+        url = url_for('search', city=city, st=1, q='key:%s' % q)
+
     return render_template('entry_list.html',
             city=CITIES[city],
             cate=cate and CATES[cate],
-            q=q)
+            data_url=url)
 
 
 @app.route('/<city>/s/')
@@ -83,7 +91,7 @@ def search(city):
                     '$near': [float(lon), float(lat)]
                     }
 
-        condition = ('q')
+        condition = request.args.get('q')
         if ':' in condition:
             field, value = condition.split(':')
         else:
