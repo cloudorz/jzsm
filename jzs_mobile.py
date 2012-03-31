@@ -172,9 +172,9 @@ def search(city):
             # what's next
             if st + 20 < num:
                 if pos:
-                    next = url_for('search', q=condition, st=st+20, pos=pos)
+                    next = url_for('search', city=city, q=condition, st=st+20, pos=pos)
                 else:
-                    next = url_for('search', q=condition, st=st+20)
+                    next = url_for('search', city=city, q=condition, st=st+20)
             else:
                 next = None
 
