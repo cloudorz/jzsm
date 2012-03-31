@@ -166,7 +166,7 @@ def search(city):
             entries = list(cur_entry.skip(st).limit(20))
 
             for e in entries:
-                e['id'] = str(e['_id'])
+                e['pk'] = str(e['_id'])
                 del e['_id']
 
             # what's next
