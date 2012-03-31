@@ -161,7 +161,7 @@ def search(city):
                 }
 
         if field in handle_q:
-            cur_entry = handle_q[field](v)
+            cur_entry = handle_q[field](value)
             num = cur_entry.count()
             entries = list(cur_entry.skip(st).limit(20))
 
