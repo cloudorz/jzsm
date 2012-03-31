@@ -3,6 +3,7 @@
 import pygeoip
 
 from pymongo import Connection
+from pymongo.objectid import ObjectId
 from gevent.wsgi import WSGIServer
 from flask import Flask, redirect, url_for, render_template, jsonify, \
         request, flash, abort
@@ -195,7 +196,7 @@ def change_city():
 
 @app.route('/entry/<eid>/detail')
 def detail(eid):
-    entry = db.Entry.find_one({'_id': eid})
+    entry = db.Entry.find_one({'_id': ObjectId(eid)})
     if not entry: abort(404)
 
     return render_template('detail.html',
