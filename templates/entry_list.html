@@ -8,7 +8,6 @@
 		</div>
 		<div data-role="content">	
 			<ul data-role="listview" class="basic">
-                {{ entries.count() }}
                 {% for e in entries %}
 				<li>
                     <a href="{{ url_for('detail', eid=e.pk) }}" data-transition="slide">
