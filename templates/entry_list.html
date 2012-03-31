@@ -35,7 +35,7 @@ $(document).ready(function(){
            var url = $(this).attr('href');
            $.get(url, function(data){
                 var $last = $("#last");
-                $last.before(data)
+                $last.before(data);
                 $last.remove();
                });
             return false;
