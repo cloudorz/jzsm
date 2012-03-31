@@ -93,7 +93,7 @@ def entry_list(city, cate=None, q=None):
     num = cur_entry.count()
     entries = cur_entry.skip(st).limit(20)
 
-    for e in entries_raw:
+    for e in entries:
         e['pk'] = str(e['_id'])
         del e['_id']
 
@@ -163,7 +163,7 @@ def search(city):
             num = cur_entry.count()
             entries = cur_entry.skip(st).limit(20)
 
-            for e in entries_raw:
+            for e in entries:
                 e['id'] = str(e['_id'])
                 del e['_id']
 
@@ -200,6 +200,8 @@ def detail(eid):
     return render_template('detail.html',
             e=entry)
 
+
+# helpers
 def get_city_by_ip():
     ip = request.headers['X-Real-IP']
     city = 'hangzhou'
