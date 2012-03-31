@@ -5,6 +5,9 @@
             <h1>{{ city.name }}<span>家政搜</span></h1>
             <a href="{{ url_for('change_city') }}" data-transition="flip">城市</a>
 		</div>
+        <div data-role="fieldcontain">
+            <input type="search" name="password" id="search" value="" />
+        </div>
 		<div data-role="content" class="service">	
 			<ul data-role="listview" class="basic">
                 {% for e in cates %}
