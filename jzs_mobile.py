@@ -91,7 +91,7 @@ def entry_list(city, cate=None, q=None):
     cur_entry = db.Entry.find(query_dict, args)
 
     num = cur_entry.count()
-    entries = cur_entry.skip(st).limit(20)
+    entries = cur_entry.skip(st).limit(20).all()
 
     for e in entries:
         e['pk'] = str(e['_id'])
@@ -108,6 +108,7 @@ def entry_list(city, cate=None, q=None):
 
     return render_template('entry_list.html',
             entries=entries,
+            num=num,
             cate=cate and CATES[cate],
             data_url=url)
 
