@@ -99,7 +99,7 @@ def entry_list(city, cate=None, q=None):
         del e['_id']
 
     # what's next
-    url = ''
+    url = None
     if st + 20 < num:
         if cate:
             url = url_for('search', city=city, st=st+20, q='tag:%s' % cate)

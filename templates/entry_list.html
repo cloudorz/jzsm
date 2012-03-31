@@ -16,6 +16,7 @@
 					</a>
 				</li>
                 {% endfor %}
+                {% if data_url %}
 				<li id="last">
                     <a href="{{ data_url }}" data-transition="slide">
                         <h4>更多</h4>
@@ -23,6 +24,7 @@
 						<span class="r"></span>
 					</a>
 				</li>
+                {% endif %}
 			</ul>	
 		</div>
 	</div>
