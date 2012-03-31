@@ -34,8 +34,9 @@ $(document).ready(function(){
            var $cur = $(this); 
            var url = $(this).attr('href');
            $.get(url, function(data){
-                $cur.parent().before(data);
-                $cur.remove();
+                var $last = $("#last");
+                $last.before(data)
+                $last.remove();
                });
             return false;
         });
