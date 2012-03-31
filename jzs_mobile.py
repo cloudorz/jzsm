@@ -65,15 +65,49 @@ def home_list(city=None):
 @app.route('/entry/<city>/<q>/search')
 def entry_list(city, cate=None, q=None):
 
-    url = ''
+    query_dict = {
+            'city_label': city,
+            'status': 'show',
+            }
+
+    args = {
+            '_id': 1,
+            'title': 1,
+            'address': 1,
+            }
+
+    st = int(request.args.get('st', 1))
+
+    # process functions
     if cate:
-        url = url_for('search', city=city, st=1, q='tag:%s' % cate)
+        query_dict['tags'] = cate
 
     if q:
-        url = url_for('search', city=city, st=1, q='key:%s' % q)
+        rqs = [e.lower() for e in re.split('\s+', q) if e]
+        regex = re.compile(r'%s' % '|'.join(rqs), re.IGNORECASE)
+        query_dict['$or'] = [{'title': regex}, {'brief': regex},
+                {'desc': regex}, {'tags': {'$in': rqs}}] 
+
+    cur_entry = db.Entry.find(query_dict, args)
+
+    num = cur_entry.count()
+    entries = cur_entry.skip(st).limit(20)
+
+    for e in entries_raw:
+        e['pk'] = str(e['_id'])
+        del e['_id']
+
+    # what's next
+    url = ''
+    if st + 20 < num:
+        if cate:
+            url = url_for('search', city=city, st=1, q='tag:%s' % cate)
+
+        if q:
+            url = url_for('search', city=city, st=1, q='key:%s' % q)
 
     return render_template('entry_list.html',
-            city=CITIES[city],
+            entries=entries,
             cate=cate and CATES[cate],
             data_url=url)
 

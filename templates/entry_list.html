@@ -8,48 +8,15 @@
 		</div>
 		<div data-role="content">	
 			<ul data-role="listview" class="basic">
+                {% for e in entries %}
 				<li>
-					<a href="detail.html" data-transition="slide">
-						<h4>大和家政</h4>
-						<p>文二西路205号</p>
+                    <a href="{{ url_for('detail', eid=e.pk) }}" data-transition="slide">
+                        <h4>{{ e.title }}</h4>
+                        <p>{{ e.address }}</p>
 						<span class="r"></span>
 					</a>
 				</li>
-				<li>
-					<a href="detail.html" data-transition="slide">
-						<h4>大和家政</h4>
-						<p>文二西路205号</p>
-						<span class="r"></span>
-					</a>
-				</li>
-				<li>
-					<a href="detail.html" data-transition="slide">
-						<h4>大和家政</h4>
-						<p>文二西路205号</p>
-						<span class="r"></span>
-					</a>
-				</li>
-				<li>
-					<a href="detail.html" data-transition="slide">
-						<h3>大和家政</h3>
-						<p>文二西路205号</p>
-						<span class="r"></span>
-					</a>
-				</li>
-				<li>
-					<a href="detail.html" data-transition="slide">
-						<h3>大和家政</h3>
-						<p>文二西路205号</p>
-						<span class="r"></span>
-					</a>
-				</li>
-				<li>
-					<a href="detail.html" data-transition="slide">
-						<h3>大和家政</h3>
-						<p>文二西路205号</p>
-						<span class="r"></span>
-					</a>
-				</li>
+                {% endfor %}
 			</ul>	
 		</div>
 	</div>
@@ -60,13 +27,7 @@ $(document).ready(function(){
     function getPositionSuccess( position ){
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
-        alert( "您所在的位置： 经度" + lat + "，纬度" + lng );
-        if(typeof position.address !== "undefined"){
-                var country = position.address.country;
-                var province = position.address.region;
-                var city = position.address.city;
-                alert('您位于' + country + province + '省' + city + '市');
-        }
+        // do request here
     };
 
     function getPositionError(error){
