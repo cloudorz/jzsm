@@ -4,7 +4,7 @@
 		<div data-role="header" class="header">
             <a href="javascript:history.go(-1);" data-transition="flip">返回</a>
             <h1>{{ cate and cate.name }}</h1>
-            <a id="nearby" href="#" data-transition="flip">附近</a>
+            <a id="nearby" href="{{ request.path }}" data-transition="flip">附近</a>
 		</div>
 		<div data-role="content">	
 			<ul data-role="listview" class="basic">
@@ -43,10 +43,21 @@ $(document).ready(function(){
             return false;
         });
 
+    $("#nearby").click(function(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError);
+            }else{
+                alert('浏览器不支持 geolocation ');
+            }
+
+        });
+
     function getPositionSuccess( position ){
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
-        // do request here
+
+        var url = $("#nearby").attr('href');
+        location.href = url + '?pos=' + lat + ',' + lng;
     };
 
     function getPositionError(error){
@@ -62,12 +73,6 @@ $(document).ready(function(){
                 break;
         }
     };
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError);
-    }else{
-        alert('浏览器不支持 geolocation ');
-    }
 
 })
 </script>

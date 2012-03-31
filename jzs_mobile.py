@@ -77,6 +77,14 @@ def entry_list(city, cate=None, q=None):
             'address': 1,
             }
 
+    pos = request.args.get('pos', None)
+    if pos:
+        lat, lon = pos.split(',')
+        query_dict['_location'] = {
+                '$maxDistance': 0.091,
+                '$near': [float(lon), float(lat)]
+                }
+
     st = int(request.args.get('st', 1))
 
     # process functions
@@ -101,15 +109,18 @@ def entry_list(city, cate=None, q=None):
     # what's next
     url = None
     if st + 20 < num:
-        if cate:
-            url = url_for('search', city=city, st=st+20, q='tag:%s' % cate)
-
         if q:
-            url = url_for('search', city=city, st=st+20, q='key:%s' % q)
+            condition = 'key:%s' % q
+        else:
+            condition = 'tag:%s' % cate
+
+        if pos:
+            url = url_for('search', city=city, st=st+20, q=condition, pos=pos)
+        else:
+            url = url_for('search', city=city, st=st+20, q=condition)
 
     return render_template('entry_list.html',
             entries=entries,
-            num=num,
             cate=cate and CATES[cate],
             data_url=url)
 
