@@ -91,7 +91,7 @@ def entry_list(city, cate=None, q=None):
     cur_entry = db.Entry.find(query_dict, args)
 
     num = cur_entry.count()
-    entries = cur_entry.skip(st).limit(20).all()
+    entries = list(cur_entry.skip(st).limit(20))
 
     for e in entries:
         e['pk'] = str(e['_id'])
