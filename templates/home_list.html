@@ -8,7 +8,7 @@
 		<div data-role="content" class="service">	
 			<ul data-role="listview" class="basic">
                 {% for e in cates %}
-                <li><a href="{{ url_for('entry_list', city=city.label, cate=e.label) }}" ><i class="{{ e.logo }}"></i>{{ e.name }}<span class="r"></span></a></li>
+                <li><a href="{{ url_for('entry_list', city=city.label, cate=e.label) }}" data-transition="slide"><i class="{{ e.logo }}"></i>{{ e.name }}<span class="r"></span></a></li>
                 {% endfor %}
 			</ul>	
 		</div>
