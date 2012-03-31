@@ -1,0 +1,18 @@
+{% for e in entries %}
+<li>
+    <a href="{{ url_for('detail', eid=e.pk) }}" data-transition="slide">
+        <h4>{{ e.title }}</h4>
+        <p>{{ e.address }}</p>
+        <span class="r"></span>
+    </a>
+</li>
+{% endfor %}
+{% if next %}
+<li id="last">
+    <a href="{{ next }}" data-transition="slide">
+        <h4>更多</h4>
+        <p></p>
+        <span class="r"></span>
+    </a>
+</li>
+{% endif %}

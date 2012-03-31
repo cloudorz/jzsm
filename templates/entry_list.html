@@ -16,7 +16,7 @@
 					</a>
 				</li>
                 {% endfor %}
-				<li>
+				<li id="last">
                     <a href="{{ data_url }}" data-transition="slide">
                         <h4>更多</h4>
                         <p></p>
@@ -30,6 +30,16 @@
 {% block js %}
 <script type="text/javascript">
 $(document).ready(function(){
+    $("#last a").live('click', function(){
+           var $cur = $(this); 
+           var url = $(this).attr('href');
+           $.get(url, function(data){
+                $cur.parent().before(data);
+                $cur.remove();
+               });
+            return false;
+        });
+
     function getPositionSuccess( position ){
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;

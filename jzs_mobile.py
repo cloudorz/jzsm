@@ -178,7 +178,9 @@ def search(city):
             else:
                 next = None
 
-            return jsonify({'next': next, 'entries': entries})
+            return render_template('macros/_listcell.html',
+                    entries=entries,
+                    next=next)
         else:
             abort(400)
 
