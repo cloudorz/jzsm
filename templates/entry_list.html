@@ -31,7 +31,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $("#last a").live('click', function(){
-           var $cur = $(this); 
            var url = $(this).attr('href');
            $.get(url, function(data){
                 var $last = $("#last");
