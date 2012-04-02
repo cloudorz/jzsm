@@ -10,7 +10,7 @@
 			<ul data-role="listview" class="basic">
                 {% for e in entries %}
 				<li>
-                    <a href="{{ url_for('detail', eid=e.pk) }}" data-transition="slide">
+                    <a href="{{ url_for('detail', eid=e.pk, back=request.path) }}" data-transition="slide">
                         <h4>{{ e.title }}</h4>
                         <p>{{ e.address }}</p>
 						<span class="r"></span>

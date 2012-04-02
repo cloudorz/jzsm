@@ -211,10 +211,12 @@ def change_city(city):
 
 @app.route('/entry/<eid>/detail')
 def detail(eid):
+    back_url = request.args.get('back')
     entry = db.Entry.find_one({'_id': ObjectId(eid)})
     if not entry: abort(404)
 
     return render_template('detail.html',
+            back=back,
             e=entry)
 
 
