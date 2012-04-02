@@ -3,7 +3,7 @@
 	<div data-role="page">
 		<div data-role="header" class="header">
             <h1>{{ city.name }}<span>家政搜</span></h1>
-            <a href="{{ url_for('change_city') }}" data-transition="flip">城市</a>
+            <a href="{{ url_for('change_city', city=city) }}" data-transition="flip">城市</a>
 		</div>
 		<div data-role="content" class="service">	
 			<ul data-role="listview" class="basic">

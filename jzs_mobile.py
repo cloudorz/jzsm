@@ -197,13 +197,14 @@ def search(city):
             abort(400)
 
 
-@app.route('/city/')
-def change_city():
+@app.route('/city/<city>')
+def change_city(city):
     city = get_city_by_ip()
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('city.html',
             cur_city=CITIES[city],
+            city=city,
             cities=order_cities,
             )
 
