@@ -199,11 +199,11 @@ def search(city):
 
 @app.route('/city/<city>')
 def change_city(city):
-    city = get_city_by_ip()
+    ipcity = get_city_by_ip()
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('city.html',
-            cur_city=CITIES[city],
+            cur_city=CITIES[ipcity],
             city=city,
             cities=order_cities,
             )
