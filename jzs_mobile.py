@@ -216,7 +216,7 @@ def detail(eid):
     if not entry: abort(404)
 
     return render_template('detail.html',
-            back=back,
+            back=back_url,
             e=entry)
 
 
