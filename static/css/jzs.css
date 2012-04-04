@@ -125,13 +125,12 @@ span.r{
 	border-top:1px solid #dfd8d4;
 	padding-left:15px;
 }
-#contact .wrapper{
-	position: relative;
-}
+
 #contact .telmail{
-	position: absolute;
+	float:right;
 	top:50%;
-	margin-top:-15px;
+	margin-top:17px;
+	margin-right:20px;
 	right:15px;
 	overflow: hidden;
 }
@@ -188,7 +187,7 @@ span.r{
 	position: absolute;
 	top:50%;
 	margin-top:-8px;
-	left:0px;
+	left:15px;
 	width:15px;
 	height:16px;
 	background:url('img/contact.png') no-repeat;
