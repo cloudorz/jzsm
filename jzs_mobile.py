@@ -55,6 +55,9 @@ def home_list(city=None):
     if not city:
         city = get_city_by_ip()
 
+    if city not in CITIES:
+        city = 'hangzhou'
+
     order_cates = sorted(CATES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('home_list.html',
@@ -200,6 +203,8 @@ def search(city):
 @app.route('/city/<city>')
 def change_city(city):
     ipcity = get_city_by_ip()
+    if ipcity not in CITIES:
+        ipcity = 'hangzhou'
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('city.html',
