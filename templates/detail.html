@@ -1,4 +1,7 @@
 {% extends "layout_m.html" %}
+{% block title %}家政搜-{{ e.title }}{% endblock %}
+{% block key %}{% for i in e.serviceitems %}{{ i }} {% endfor %}{% endblock %}
+{% block desc %}{{ e.brief }}{% endblock %}
 {% block content %}
 	<div data-role="page">
 		<div data-role="header" class="header">

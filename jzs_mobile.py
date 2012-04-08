@@ -126,7 +126,7 @@ def entry_list(city, cate=None, q=None):
 
     return render_template('entry_list.html',
             entries=entries,
-            city=city,
+            city=CITIES[city],
             cate=cate and CATES[cate],
             data_url=url)
 
