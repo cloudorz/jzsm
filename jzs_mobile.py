@@ -6,7 +6,7 @@ from gevent.wsgi import WSGIServer
 from flask import Flask, redirect, url_for, render_template, jsonify, \
         request, flash, abort
 
-from helper import get_city, get_city_by_ip
+from .helper import get_city, get_city_by_ip
 
 
 # config db
