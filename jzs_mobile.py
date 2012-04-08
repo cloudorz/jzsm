@@ -1,25 +1,13 @@
 # coding: utf-8
 
-import json, pygeoip
-
 from pymongo import Connection
 from pymongo.objectid import ObjectId
 from gevent.wsgi import WSGIServer
 from flask import Flask, redirect, url_for, render_template, jsonify, \
         request, flash, abort
 
+from helper import get_city, get_city_by_ip
 
-# loading data
-
-data_f = open('city_dict.txt', 'rb')
-data = data_f.read()
-
-city_dict = json.loads(data)
-
-data_f.close()
-
-# consists
-gic = pygeoip.GeoIP('/data/backup/GeoLiteCity.dat', pygeoip.MEMORY_CACHE)
 
 # config db
 db = Connection('localhost', 27017).jzsou
@@ -243,24 +231,6 @@ def detail(eid):
 
 
 # helpers
-
-def get_city(label):
-    if label in city_dict:
-        city = city_dict[label]
-    else:
-        city = city_dict['hangzhou']
-    return city
-
-def get_city_by_ip():
-    ip = request.headers['X-Real-IP']
-    city = 'hangzhou'
-    if ip:
-        record = gic.record_by_addr(ip)
-        if record:
-            city_ = record.get('city', None)
-            if city_ and city_ in CITIES:
-                city = city_.lower()
-    return city
 
 if __name__ == "__main__":
     http_server = WSGIServer(('127.0.0.1', 8300), app)
