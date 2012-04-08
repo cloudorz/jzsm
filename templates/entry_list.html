@@ -1,10 +1,10 @@
 {% extends "layout_m.html" %}
-{% block title %}{{ city.name }}-家政搜{% endblock %}
+{% block title %}{{ city.name }}-家政搜-{{ cate and cate.name or q }}{% endblock %}
 {% block content %}
 	<div data-role="page">
 		<div data-role="header" class="header">
             <a href="{{ url_for('home_list', city=city.label) }}" data-transition="flip">返回</a>
-            <h1>{{ cate and cate.name }}</h1>
+            <h1>{{ cate and cate.name or q }}</h1>
             <a id="nearby" href="{{ request.path }}" data-transition="flip">附近</a>
 		</div>
 		<div data-role="content">	
