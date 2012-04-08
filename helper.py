@@ -31,6 +31,6 @@ def get_city_by_ip():
         record = gic.record_by_addr(ip)
         if record:
             city_ = record.get('city', None)
-            if city_ and city_ in CITIES:
+            if city_:
                 city = city_.lower()
     return city
