@@ -1,12 +1,12 @@
 # coding: utf-8
 
-import pygeoip
-
 from pymongo import Connection
 from pymongo.objectid import ObjectId
 from gevent.wsgi import WSGIServer
 from flask import Flask, redirect, url_for, render_template, jsonify, \
         request, flash, abort
+
+from helper import get_city, get_city_by_ip
 
 
 # config db
@@ -15,9 +15,6 @@ db = Connection('localhost', 27017).jzsou
 # config app
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
-
-# consists
-gic = pygeoip.GeoIP('/data/backup/GeoLiteCity.dat', pygeoip.MEMORY_CACHE)
 
 CITIES = {
         'hangzhou': {'no': 1, 'label': 'hangzhou', 'name': u'杭州'},
@@ -56,13 +53,18 @@ def home_list(city=None):
         city = get_city_by_ip()
 
     if city not in CITIES:
-        city = 'hangzhou'
+        city_dict = get_city(city)
+        work = False
+    else:
+        work = True
+        city_dict = CITIES[city]
 
     order_cates = sorted(CATES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('home_list.html',
+            work=work,
             cates=order_cates,
-            city=CITIES[city])
+            city=city_dict)
 
 
 @app.route('/entry/<city>/<cate>/cate')
@@ -204,11 +206,14 @@ def search(city):
 def change_city(city):
     ipcity = get_city_by_ip()
     if ipcity not in CITIES:
-        ipcity = 'hangzhou'
+        ipcity_dict = get_city(ipcity)
+    else:
+        ipcity_dict = CITIES[ipcity]
+
     order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('city.html',
-            cur_city=CITIES[ipcity],
+            cur_city=ipcity_dict,
             city=city,
             cities=order_cities,
             )
@@ -226,16 +231,6 @@ def detail(eid):
 
 
 # helpers
-def get_city_by_ip():
-    ip = request.headers['X-Real-IP']
-    city = 'hangzhou'
-    if ip:
-        record = gic.record_by_addr(ip)
-        if record:
-            city_ = record.get('city', None)
-            if city_ and city_ in CITIES:
-                city = city_.lower()
-    return city
 
 if __name__ == "__main__":
     http_server = WSGIServer(('127.0.0.1', 8300), app)
