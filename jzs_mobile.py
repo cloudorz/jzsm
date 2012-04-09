@@ -4,7 +4,7 @@ from pymongo import Connection
 from pymongo.objectid import ObjectId
 from gevent.wsgi import WSGIServer
 from flask import Flask, redirect, url_for, render_template, jsonify, \
-        request, flash, abort
+        request, flash, abort, session
 
 from helper import get_city, get_city_by_ip
 
@@ -50,19 +50,16 @@ def server_error(error):
 @app.route('/<city>/')
 def home_list(city=None):
     if not city:
-        city = get_city_by_ip()
-
-    if city not in CITIES:
-        city_dict = get_city(city)
-        work = False
+        city_dict = session.get('curcity', None)
     else:
-        work = True
-        city_dict = CITIES[city]
+        city = get_city_by_ip()
+        city_dict = get_city(city)
+        session['curcity'] = city_dict
 
     order_cates = sorted(CATES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('home_list.html',
-            work=work,
+            work=city_dict['label'] in CITIES,
             cates=order_cates,
             city=city_dict)
 
