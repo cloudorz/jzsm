@@ -7,7 +7,7 @@ from flask import request
 
 # loading data
 
-data_f = open('city_dict.txt', 'rb')
+data_f = open('/data/backup/city_dict.txt', 'rb')
 data = data_f.read()
 
 city_dict = json.loads(data)
