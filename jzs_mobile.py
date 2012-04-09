@@ -51,8 +51,11 @@ def server_error(error):
 def home_list(city=None):
     if not city:
         city_dict = session.get('curcity', None)
+        if city_dict:
+            city = get_city_by_ip()
+            city_dict = get_city(city)
+            session['curcity'] = city_dict
     else:
-        city = get_city_by_ip()
         city_dict = get_city(city)
         session['curcity'] = city_dict
 
