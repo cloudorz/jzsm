@@ -53,10 +53,6 @@ def server_error(error):
 def home_list(city=None):
     if not city:
         city_dict = session.get('curcity', None)
-        if not city_dict:
-            city = get_city_by_ip()
-            city_dict = get_city(city)
-            session['curcity'] = city_dict
     else:
         city_dict = get_city(city)
         session['curcity'] = city_dict
@@ -64,7 +60,6 @@ def home_list(city=None):
     order_cates = sorted(CATES.values(), lambda e1, e2: e1['no'] - e2['no'])
 
     return render_template('home_list.html',
-            work=city_dict['label'] in CITIES,
             cates=order_cates,
             city=city_dict)
 
