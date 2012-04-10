@@ -6,6 +6,8 @@ from gevent.wsgi import WSGIServer
 from flask import Flask, redirect, url_for, render_template, jsonify, \
         request, flash, abort, session
 
+from tornado import httpclient
+
 from helper import get_city, get_city_by_ip
 
 
@@ -65,6 +67,20 @@ def home_list(city=None):
             work=city_dict['label'] in CITIES,
             cates=order_cates,
             city=city_dict)
+
+
+@app.route('/getcity/<latlon>')
+@app.route('/getcity/')
+def set_city(latlon=None):
+    if latlon:
+        try:
+            city_label = http_client.fetch('http://l.n2u.in/city/%s' % latlon)
+        except httpclient.HTTPError, e:
+            city_label = 'hangzhou'
+    else:
+        city_label = get_city_by_ip()
+
+    return jsonify(get_city(city_label))
 
 
 @app.route('/entry/<cate>/')
@@ -135,6 +151,7 @@ def entry_list(cate=None, q=None):
 
 @app.route('/s/')
 def search():
+
     city = session.get('curcity', CITIES['hangzhou'])
     query_dict = {
             'city_label': city['label'],
