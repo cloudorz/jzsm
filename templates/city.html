@@ -9,7 +9,7 @@
 			<h2>定位城市</h2>
 			<ul data-role="listview" data-inset="true" class="inset">
 				<li data-corners="true">
-                <a href="{{ url_for('home_list', city=cur_city.label) }}">
+                <a id="city" href="{{ url_for('home_list') }}">
                         {{ cur_city.name }}
 					</a>
 				</li>
@@ -22,4 +22,51 @@
 			</ul>	
 		</div>
 	</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $(function(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError);
+            }else{
+                getCity('');
+            }
+            return false;
+        });
+
+    function getPositionSuccess( position ){
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+
+        getCity(lat+','+lng);
+    };
+
+    function getCity(loc){
+        var url = "/getcity/" + loc;
+        $.getJSON(url, function(city){
+                var $cur = $('#city');
+                var url = $cur.attr('href');
+                url += city.label;
+                $("#city").attr('href', url).val(city.name);
+                });
+    }
+
+    function getPositionError(error){
+        /*switch(error.code){
+            case error.TIMEOUT:
+                alert("连接超时，请重试");
+                break;
+            case error.PERMISSION_DENIED:
+                alert("您拒绝了使用位置共享服务，查询已取消");
+                break;
+            case error.POSITION_UNAVAILABLE: 
+                alert("亲爱的火星用户，非常抱歉，我们暂时无法为您所在的星球提供位置服务");
+                break;
+        }*/
+        getCity('');
+    };
+
+})
+</script>
 {% endblock %}
