@@ -64,8 +64,8 @@ def home_list(city=None):
             city=city_dict)
 
 
-@app.route('/getcity/<latlon>')
-@app.route('/getcity/')
+@app.route('/setcity/<latlon>')
+@app.route('/setcity/')
 def set_city(latlon=None):
     if latlon:
         http_client = httpclient.HTTPClient()
@@ -78,6 +78,23 @@ def set_city(latlon=None):
 
     city_dict = get_city(city_label)
     session['curcity'] = city_dict
+
+    return jsonify(city_dict)
+
+
+@app.route('/getcity/<latlon>')
+@app.route('/getcity/')
+def get_city(latlon=None):
+    if latlon:
+        http_client = httpclient.HTTPClient()
+        try:
+            city_label = http_client.fetch('http://l.n2u.in/city/%s' % latlon)
+        except httpclient.HTTPError, e:
+            city_label = 'hangzhou'
+    else:
+        city_label = get_city_by_ip()
+
+    city_dict = get_city(city_label)
 
     return jsonify(city_dict)
 
