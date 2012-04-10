@@ -73,6 +73,7 @@ def home_list(city=None):
 @app.route('/getcity/')
 def set_city(latlon=None):
     if latlon:
+        http_client = httpclient.HTTPClient()
         try:
             city_label = http_client.fetch('http://l.n2u.in/city/%s' % latlon)
         except httpclient.HTTPError, e:
