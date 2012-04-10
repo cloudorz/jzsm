@@ -9,6 +9,7 @@
 		</div>
 		<div data-role="content">	
 			<ul data-role="listview" class="basic">
+                {% if work %}
                 {% for e in entries %}
 				<li>
                     <a href="{{ url_for('detail', eid=e.pk, back=request.path) }}" data-transition="slide">
@@ -22,6 +23,15 @@
 				<li id="last">
                     <a href="{{ data_url }}" data-transition="slide">
                         <h4>更多</h4>
+                        <p></p>
+						<span class="r"></span>
+					</a>
+				</li>
+                {% endif %}
+                {% else %}
+				<li >
+                    <a href="" data-transition="slide">
+                        <h4>你所在城市的家政搜信息正在收录中</h4>
                         <p></p>
 						<span class="r"></span>
 					</a>

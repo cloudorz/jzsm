@@ -159,6 +159,7 @@ def entry_list(cate=None, q=None):
             url = url_for('search', st=st+20, q=condition)
 
     return render_template('entry_list.html',
+            work=city['label'] in CITIES,
             entries=entries,
             city=city,
             q=q,
