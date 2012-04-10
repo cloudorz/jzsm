@@ -81,7 +81,10 @@ def set_city(latlon=None):
     else:
         city_label = get_city_by_ip()
 
-    return jsonify(get_city(city_label))
+    city_dict = get_city(city_label)
+    session['curcity'] = city_dict
+
+    return jsonify(city_dict)
 
 
 @app.route('/entry/<cate>/')
