@@ -51,10 +51,10 @@ def server_error(error):
 def home_list(city=None):
     if not city:
         city_dict = session.get('curcity', None)
-        if not city_dict:
+        if city_dict:
             city = get_city_by_ip()
             city_dict = get_city(city)
-            session['curcity'] = city_dict
+        session['curcity'] = city_dict
     else:
         city_dict = get_city(city)
         session['curcity'] = city_dict
@@ -67,12 +67,13 @@ def home_list(city=None):
             city=city_dict)
 
 
-@app.route('/entry/<city>/<cate>/cate')
-@app.route('/entry/<city>/<q>/search')
-def entry_list(city, cate=None, q=None):
+@app.route('/entry/<cate>/')
+@app.route('/entry/<q>/s')
+def entry_list(cate=None, q=None):
 
+    city = session.get('curcity', CITIES['hangzhou'])
     query_dict = {
-            'city_label': city,
+            'city_label': city['label'],
             'status': 'show',
             }
 
@@ -120,91 +121,92 @@ def entry_list(city, cate=None, q=None):
             condition = 'tag:%s' % cate
 
         if pos:
-            url = url_for('search', city=city, st=st+20, q=condition, pos=pos)
+            url = url_for('search', st=st+20, q=condition, pos=pos)
         else:
-            url = url_for('search', city=city, st=st+20, q=condition)
+            url = url_for('search', st=st+20, q=condition)
 
     return render_template('entry_list.html',
             entries=entries,
-            city=CITIES[city],
+            city=city,
             q=q,
             cate=cate and CATES[cate],
             data_url=url)
 
 
-@app.route('/<city>/s/')
+@app.route('/s/')
 def search(city):
+    city = session.get('curcity', CITIES['hangzhou'])
+    query_dict = {
+            'city_label': city['label'],
+            'status': 'show',
+            }
+    args = {
+            '_id': 1,
+            'title': 1,
+            'address': 1,
+            }
 
-        query_dict = {
-                'city_label': city,
-                'status': 'show',
-                }
-        args = {
-                '_id': 1,
-                'title': 1,
-                'address': 1,
-                }
-
-        pos = request.args.get('pos', None)
-        if pos:
-            lat, lon = pos.split(',')
-            query_dict['_location'] = {
-                    '$maxDistance': 0.091,
-                    '$near': [float(lon), float(lat)]
-                    }
-
-        condition = request.args.get('q')
-        if ':' in condition:
-            field, value = condition.split(':')
-        else:
-            abort(400)
-
-        st = int(request.args.get('st', 1))
-
-        # process functions
-        def do_tag(tag):
-            query_dict['tags'] = tag
-            return db.Entry.find(query_dict, args)
-
-        def do_key(data):
-            rqs = [e.lower() for e in re.split('\s+', data) if e]
-            regex = re.compile(r'%s' % '|'.join(rqs), re.IGNORECASE)
-            query_dict['$or'] = [{'title': regex}, {'brief': regex},
-                    {'desc': regex}, {'tags': {'$in': rqs}}] 
-            return db.Entry.find(query_dict, args)
-
-        handle_q = {
-                'tag': do_tag, 
-                'key': do_key,
+    pos = request.args.get('pos', None)
+    if pos:
+        lat, lon = pos.split(',')
+        query_dict['_location'] = {
+                '$maxDistance': 0.091,
+                '$near': [float(lon), float(lat)]
                 }
 
-        if field in handle_q:
-            cur_entry = handle_q[field](value)
-            num = cur_entry.count()
-            entries = list(cur_entry.skip(st).limit(20))
+    condition = request.args.get('q')
+    if ':' in condition:
+        field, value = condition.split(':')
+    else:
+        abort(400)
 
-            for e in entries:
-                e['pk'] = str(e['_id'])
-                del e['_id']
+    st = int(request.args.get('st', 1))
 
-            # what's next
-            if st + 20 < num:
-                if pos:
-                    next = url_for('search', city=city, q=condition, st=st+20, pos=pos)
-                else:
-                    next = url_for('search', city=city, q=condition, st=st+20)
+    # process functions
+    def do_tag(tag):
+        query_dict['tags'] = tag
+        return db.Entry.find(query_dict, args)
+
+    def do_key(data):
+        rqs = [e.lower() for e in re.split('\s+', data) if e]
+        regex = re.compile(r'%s' % '|'.join(rqs), re.IGNORECASE)
+        query_dict['$or'] = [{'title': regex}, {'brief': regex},
+                {'desc': regex}, {'tags': {'$in': rqs}}] 
+        return db.Entry.find(query_dict, args)
+
+    handle_q = {
+            'tag': do_tag, 
+            'key': do_key,
+            }
+
+    if field in handle_q:
+        cur_entry = handle_q[field](value)
+        num = cur_entry.count()
+        entries = list(cur_entry.skip(st).limit(20))
+
+        for e in entries:
+            e['pk'] = str(e['_id'])
+            del e['_id']
+
+        # what's next
+        if st + 20 < num:
+            if pos:
+                next = url_for('search', q=condition, st=st+20, pos=pos)
             else:
-                next = None
-
-            return render_template('macros/_listcell.html',
-                    entries=entries,
-                    next=next)
+                next = url_for('search', q=condition, st=st+20)
         else:
-            abort(400)
+            next = None
+
+        return render_template('macros/_listcell.html',
+                entries=entries,
+                next=next)
+    else:
+        abort(400)
 
 
-@app.route('/city/<city>')
-def change_city(city):
+@app.route('/city/')
+def change_city():
+    city = session.get('curcity', CITIES['hangzhou'])
     ipcity = get_city_by_ip()
     if ipcity not in CITIES:
         ipcity_dict = get_city(ipcity)
