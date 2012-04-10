@@ -37,7 +37,7 @@ $(document).ready(function(){
     function getCity(loc){
         var url = "/getcity/" + loc;
         $.getJSON(url, function(city){
-                $("#city").preappend(city.name);
+                $("#city").prepend(city.name);
                 alert(city.name);
                 });
     }
