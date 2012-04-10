@@ -14,6 +14,9 @@ from helper import get_city, get_city_by_ip
 # config db
 db = Connection('localhost', 27017).jzsou
 
+# client
+http_client = httpclient.HTTPClient()
+
 # config app
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
@@ -68,7 +71,6 @@ def home_list(city=None):
 @app.route('/setcity/')
 def set_city(latlon=None):
     if latlon:
-        http_client = httpclient.HTTPClient()
         try:
             city_label = http_client.fetch('http://l.n2u.in/city/%s' % latlon)
         except httpclient.HTTPError, e:
@@ -86,7 +88,6 @@ def set_city(latlon=None):
 @app.route('/getcity/')
 def get_city(latlon=None):
     if latlon:
-        http_client = httpclient.HTTPClient()
         try:
             city_label = http_client.fetch('http://l.n2u.in/city/%s' % latlon)
         except httpclient.HTTPError, e:
