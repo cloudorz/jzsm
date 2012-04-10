@@ -269,7 +269,6 @@ def detail(eid):
     phones = entry['contracts']
     # get phone
     tel = None
-    is_cell = bool(cellphone.match(e))
     for e in phones:
         if not cellphone.match(e):
             tel = e
@@ -285,8 +284,8 @@ def detail(eid):
 
     return render_template('detail.html',
             back=back_url,
-            is_cell=is_cell,
             tel=tel,
+            is_cell=bool(cellphone.match(tel)),
             e=entry)
 
 
