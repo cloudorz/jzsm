@@ -45,7 +45,7 @@ $(document).ready(function(){
     }
 
     function getPositionError(error){
-        switch(error.code){
+        /*switch(error.code){
             case error.TIMEOUT:
                 alert("连接超时，请重试");
                 break;
@@ -55,7 +55,8 @@ $(document).ready(function(){
             case error.POSITION_UNAVAILABLE: 
                 alert("亲爱的火星用户，非常抱歉，我们暂时无法为您所在的星球提供位置服务");
                 break;
-        }
+        }*/
+        getCity('');
     };
 
 })
