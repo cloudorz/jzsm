@@ -69,7 +69,7 @@ def home_list(city=None):
 
 @app.route('/setcity/<latlon>')
 @app.route('/setcity/')
-def set_city(latlon=None):
+def setcity(latlon=None):
     if latlon:
         try:
             city_label = http_client.fetch('http://l.n2u.in/city/%s' % latlon)
@@ -86,7 +86,7 @@ def set_city(latlon=None):
 
 @app.route('/getcity/<latlon>')
 @app.route('/getcity/')
-def get_city(latlon=None):
+def getcity(latlon=None):
     if latlon:
         try:
             city_label = http_client.fetch('http://l.n2u.in/city/%s' % latlon)
