@@ -35,7 +35,9 @@
 				<div class="hr"></div>
                 <div id="contact">
 					<div class="telmail">
-                        <a href="{% if is_cell %}sms:{{ tel }}{% else %}javascript:void(0);{% endif %}"><i class="mail"></i>短信</a>
+                        {% if is_cell %}
+                        <a href="sms:{{ tel }}"><i class="mail"></i>短信</a>
+                        {% endif %}
                         <a href="tel:{{ tel }}"><i class="tel"></i>电话</a>
 					</div>
 					<span class="contactor"></span>
