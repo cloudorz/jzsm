@@ -48,7 +48,8 @@ $(document).ready(function(){
                 var $cur = $('#city');
                 var url = $cur.attr('href');
                 url += city.label;
-                $("#city").attr('href', url).val(city.name);
+                $cur.attr('href', url);
+                $cur.val(city.name);
                 });
     }
 
