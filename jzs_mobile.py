@@ -266,18 +266,19 @@ def detail(eid):
     back_url = request.args.get('back')
     entry = db.Entry.find_one({'_id': ObjectId(eid)})
 
+    phones = entry['contracts']
     # get phone
     tel = None
-    for e in entry.contracts:
+    for e in phones:
         if not cellphone.match(e):
             tel = e
             break
 
     if not tel:
-        if len(entry.contracts) >= 3:
-            tel = entry.contracts[1]
+        if len(phones) >= 3:
+            tel = phones[1]
         else:
-            tel = entry.contracts[0]
+            tel = phones[0]
 
     if not entry: abort(404)
 
