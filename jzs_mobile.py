@@ -134,7 +134,7 @@ def entry_list(cate=None, q=None):
 
 
 @app.route('/s/')
-def search(city):
+def search():
     city = session.get('curcity', CITIES['hangzhou'])
     query_dict = {
             'city_label': city['label'],
