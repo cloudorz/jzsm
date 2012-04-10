@@ -10,7 +10,7 @@
 		<div data-role="content">	
 			<ul data-role="listview" class="basic">
                 {% if work %}
-                {% for e in entries %}
+                    {% for e in entries %}
 				<li>
                     <a href="{{ url_for('detail', eid=e.pk, back=request.path) }}" data-transition="slide">
                         <h4>{{ e.title }}</h4>
@@ -18,8 +18,8 @@
 						<span class="r"></span>
 					</a>
 				</li>
-                {% endfor %}
-                {% if data_url %}
+                    {% endfor %}
+                    {% if data_url %}
 				<li id="last">
                     <a href="{{ data_url }}" data-transition="slide">
                         <h4>更多</h4>
@@ -27,7 +27,7 @@
 						<span class="r"></span>
 					</a>
 				</li>
-                {% endif %}
+                    {% endif %}
                 {% else %}
 				<li >
                     <a href="javascript:void(0);" data-transition="slide">
