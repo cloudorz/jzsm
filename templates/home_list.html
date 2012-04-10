@@ -3,13 +3,13 @@
 	<div data-role="page">
 		<div data-role="header" class="header">
             <h1>{{ city.name }}<span>家政搜</span></h1>
-            <a href="{{ url_for('change_city', city=city.label) }}" data-transition="flip">城市</a>
+            <a href="{{ url_for('change_city') }}" data-transition="flip">城市</a>
 		</div>
 		<div data-role="content" class="service">	
 			<ul data-role="listview" class="basic">
                 {% if work %}
                     {% for e in cates %}
-                <li><a href="{{ url_for('entry_list', city=city.label, cate=e.label) }}" data-transition="slide"><i class="{{ e.logo }}"></i>{{ e.name }}<span class="r"></span></a></li>
+                <li><a href="{{ url_for('entry_list', cate=e.label) }}" data-transition="slide"><i class="{{ e.logo }}"></i>{{ e.name }}<span class="r"></span></a></li>
                     {% endfor %}
                 {% else %}
                 <li>你所在的城市的家政信息暂无收录</li>
