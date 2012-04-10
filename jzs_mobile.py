@@ -1,5 +1,7 @@
 # coding: utf-8
 
+import re
+
 from pymongo import Connection
 from pymongo.objectid import ObjectId
 from gevent.wsgi import WSGIServer
