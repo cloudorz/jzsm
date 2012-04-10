@@ -17,6 +17,8 @@ db = Connection('localhost', 27017).jzsou
 # client
 http_client = httpclient.HTTPClient()
 
+cellphone = re.compile(r'^(1(([35]\d)|(47)|[8][0126789]))\d{8}$')
+
 # config app
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
@@ -261,10 +263,25 @@ def change_city():
 def detail(eid):
     back_url = request.args.get('back')
     entry = db.Entry.find_one({'_id': ObjectId(eid)})
+
+    # get phone
+    tel = None
+    for e in entry.contracts:
+        if not cellphone.match(e):
+            tel = e
+            break
+
+    if not tel:
+        if len(entry.contracts) >= 3:
+            tel = entry.contracts[1]
+        else:
+            tel = entry.contracts[0]
+
     if not entry: abort(404)
 
     return render_template('detail.html',
             back=back_url,
+            tel=tel,
             e=entry)
 
 
