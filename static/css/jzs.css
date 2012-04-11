@@ -90,13 +90,13 @@ span.r{
 	left:10px;
 	background:url('img/service.png') no-repeat;
 }
-.service ul li i.fix{background-position:-18px 0;}
-.service ul li i.fan{background-position:-36px 0;}
+.service ul li i.fix{background-position:-36px 0;}
+.service ul li i.fan{background-position:-72px 0;}
 .service ul li i.pipe{background-position:-54px 0;}
-.service ul li i.unlock{background-position:-72px 0;}
-.service ul li i.baby{background-position:-90px 0;}
-.service ul li i.clean{background-position:-108px 0;}
-.service ul li i.pc{background-position:-126px 0;}
+.service ul li i.unlock{background-position:-126px 0;}
+.service ul li i.baby{background-position:-108px 0;}
+.service ul li i.clean{background-position:-90px 0;}
+.service ul li i.pc{background-position:-18px 0;}
 
 .info table th{
 	font-size:14px;
