@@ -34,16 +34,6 @@ CITIES = {
         'guangzhou': {'no': 6, 'label': 'guangzhou', 'name': u'广州'},
         }
 
-CATES = {
-        'banjia': {'no': 1, 'logo': 'move', 'label': 'banjia', 'name': u'搬家'},
-        'jiadianweixiu': {'no': 2, 'logo': 'fix', 'label': 'jiadianweixiu', 'name': u'家电维修'},
-        'kongtiaoyiji': {'no': 3, 'logo': 'fan', 'label': 'kongtiaoyiji', 'name': u'空调移机'},
-        'guandaoshutong': {'no': 4, 'logo': 'pipe', 'label': 'guandaoshutong', 'name': u'管道疏通'},
-        'kaisuo': {'no': 5, 'logo': 'unlock', 'label': 'kaisuo', 'name': u'开锁'},
-        'yuesao': {'no': 6, 'logo': 'baby', 'label': 'yuesao', 'name': u'月嫂'},
-        'zhongdiangong': {'no': 7, 'logo': 'clean', 'label': 'zhongdiangong', 'name': u'钟点工'},
-        'xiudiannao': {'no': 8, 'logo': 'pc', 'label': 'xiudiannao', 'name': u'修电脑'},
-        }
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -167,7 +157,7 @@ def entry_list(cate=None, q=None):
             entries=entries,
             city=city,
             q=q,
-            cate=cate and CATES[cate],
+            cate=db.Cate.find({'name': cate}),
             data_url=url)
 
 
