@@ -25,15 +25,6 @@ cellphone = re.compile(r'^(1(([35]\d)|(47)|[8][0126789]))\d{8}$')
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 
-CITIES = {
-        'hangzhou': {'no': 1, 'label': 'hangzhou', 'name': u'杭州'},
-        'shanghai': {'no': 2, 'label': 'shanghai', 'name': u'上海'},
-        'nanjing': {'no': 3, 'label': 'nanjing', 'name': u'南京'},
-        'beijing': {'no': 4, 'label': 'beijing', 'name': u'北京'},
-        'shenzhen': {'no': 5, 'label': 'shenzhen', 'name': u'深圳'},
-        'guangzhou': {'no': 6, 'label': 'guangzhou', 'name': u'广州'},
-        }
-
 
 @app.errorhandler(404)
 def page_not_found(error):
