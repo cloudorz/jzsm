@@ -2,7 +2,7 @@
 
 import re
 
-from pymongo import Connection
+from pymongo import Connection, ASCENDING, DESCENDING
 from pymongo.objectid import ObjectId
 from gevent.wsgi import WSGIServer
 from flask import Flask, redirect, url_for, render_template, jsonify, \
@@ -64,10 +64,10 @@ def home_list(city=None):
         city_dict = get_city(city)
         session['curcity'] = city_dict
 
-    order_cates = sorted(CATES.values(), lambda e1, e2: e1['no'] - e2['no'])
+    cates = db.City.find({'block': False}).sort({'no': ASCENDING})
 
     return render_template('home_list.html',
-            cates=order_cates,
+            cates=cates,
             city=city_dict)
 
 
