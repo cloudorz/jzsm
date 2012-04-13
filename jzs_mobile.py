@@ -157,7 +157,7 @@ def entry_list(cate=None, q=None):
             entries=entries,
             city=city,
             q=q,
-            cate=db.Cate.find({'name': cate}),
+            cate=db.Cate.find_one({'label': cate}),
             data_url=url)
 
 
