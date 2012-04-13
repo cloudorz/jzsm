@@ -98,7 +98,7 @@ def getcity(latlon=None):
 @app.route('/entry/<q>/s')
 def entry_list(cate=None, q=None):
 
-    city = session.get('curcity', CITIES['hangzhou'])
+    city = session.get('curcity', get_city('hangzhou'))
     query_dict = {
             'city_label': city['label'],
             'status': 'show',
@@ -153,7 +153,7 @@ def entry_list(cate=None, q=None):
             url = url_for('search', st=st+20, q=condition)
 
     return render_template('entry_list.html',
-            work=city['label'] in CITIES,
+            valid_city=db.City.find_one({'label': city['label'], 'block': False}),
             entries=entries,
             city=city,
             q=q,
@@ -164,7 +164,7 @@ def entry_list(cate=None, q=None):
 @app.route('/s/')
 def search():
 
-    city = session.get('curcity', CITIES['hangzhou'])
+    city = session.get('curcity', get_city('hangzhou'))
     query_dict = {
             'city_label': city['label'],
             'status': 'show',
@@ -235,19 +235,11 @@ def search():
 
 @app.route('/city/')
 def change_city():
-    city = session.get('curcity', CITIES['hangzhou'])
-    ipcity = get_city_by_ip()
-    if ipcity not in CITIES:
-        ipcity_dict = get_city(ipcity)
-    else:
-        ipcity_dict = CITIES[ipcity]
 
-    order_cities = sorted(CITIES.values(), lambda e1, e2: e1['no'] - e2['no'])
+    cities = db.City.find({'block': False}).sort('no', ASCENDING)
 
     return render_template('city.html',
-            cur_city=ipcity_dict,
-            city=city,
-            cities=order_cities,
+            cities=cities,
             )
 
 

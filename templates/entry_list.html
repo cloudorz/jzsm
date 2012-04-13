@@ -9,7 +9,7 @@
 		</div>
 		<div data-role="content">	
 			<ul data-role="listview" class="basic">
-                {% if work %}
+                {% if valid_city %}
                     {% for e in entries %}
 				<li>
                     <a href="{{ url_for('detail', eid=e.pk, back=request.path) }}" data-transition="slide">
