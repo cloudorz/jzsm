@@ -64,7 +64,7 @@ def home_list(city=None):
         city_dict = get_city(city)
         session['curcity'] = city_dict
 
-    cates = db.City.find({'block': False}).sort('no', ASCENDING)
+    cates = db.Cate.find({'block': False}).sort('no', ASCENDING)
 
     return render_template('home_list.html',
             cates=cates,
